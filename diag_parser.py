@@ -1,4 +1,5 @@
 import argparse
+import os
 from N2G import drawio_diagram
 import zlib
 import base64
@@ -72,7 +73,7 @@ def main():
     print('|  №   | Device name          |    Модель                 |   Pwr, W   |   Size, U  |')
     print('-------------------------------------------------------------------------------------')
 
-    resfile = open("output\devices.csv", "w")
+    resfile = open("output" + os.sep + "devices.csv", "w")
     resfile.write('№;Device name;Модель;Pwr, W;Size, U\n')
 
     for dev in devices:
@@ -108,7 +109,7 @@ def main():
     print('|  №   | Device name          |    Interface    |     Int Type    |           Media           | Device name          |       Interface      |      Int Type   |')
     print('---------------------------------------------------------------------------------------------------------------------------------------------------------------')
 
-    resfile = open("output\cable_journal.csv", "w")
+    resfile = open("output" + os.sep + "cable_journal.csv", "w")
     resfile.write('№;Device name;Interface;Int Type;Media;Device name;Interface;Int Type\n')
 
     for lnk in links:
