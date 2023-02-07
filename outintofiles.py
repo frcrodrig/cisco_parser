@@ -20,35 +20,35 @@ def init_files():
         os.mkdir("output")
 
     # инициализация файла c основным выводом
-    resfile = open("output\cparser_output.csv", "w")
+    resfile = open("output" + os.sep + "cparser_output.csv", "w")
     resfile.write("Configfile;Hostname;Mng IP;Domain Name;Model;Serial;SW Version;Ports avail.;Ports used\n")
     resfile.close()
 
     # инициализация файла с портами, на которых есть соседи
-    resfile = open("output\\all_nei_output.csv", "w")
+    resfile = open("output" + os.sep + "all_nei_output.csv", "w")
     resfile.write("Hostname;Source Model;Source Mng IP;Port\n")
     resfile.close()
 
     # инициализация файла со связями CDP
-    resfile = open("output\\cdp_nei_output.csv", "w")
+    resfile = open("output" + os.sep + "cdp_nei_output.csv", "w")
     resfile.write(
         "ConfigFile;Source hostname;Source Model;Source Mng IP;Source port;Dest hostname;Dest Model;Dest IP;Dest portn\n")
     resfile.close()
 
     # инициализация файла с перечнем портов, за которыми можно увидеть много MAC-адресов
-    resfile = open("output\\many_macs.csv", "w")
+    resfile = open("output" + os.sep + "many_macs.csv", "w")
     resfile.write("Hostname;VLAN;MAC;PORT\n")
     resfile.close()
 
     # инициализация файла с конфигурациями интерфейсов
-    resfile = open("output\\interfaces.csv", "w")
+    resfile = open("output" + os.sep + "interfaces.csv", "w")
     resfile.write(
         'File Name;Hostname;Switch type;Num of Ph ports;Num of SVI ints;Num of access ports;Num of trunk ports;Num of '
         'access dot1x ports;Num of ints w/IP;Access Vlans;Native Vlans;Voice Vlans;Trunk Vlans;Vlan database;users '
         'id;iot_toro id;media_equip id;off_equip id;admin id;\n')
     resfile.close()
 
-    resfile = open("output\\missed_devices.csv", "w")
+    resfile = open("output" + os.sep + "missed_devices.csv", "w")
     resfile.write('Hostname;Model;IP;\n')
     resfile.close()
 
@@ -58,7 +58,7 @@ def init_comliance_files():
         os.mkdir("output")
 
     # инициализация файла c основным выводом данных соответствия
-    resfile = open("output\compliance_output.csv", "w")
+    resfile = open("output" + os.sep + "compliance_output.csv", "w")
     resfile.write("Num;Filename;Hostname;IP;Domain Name;Model;Serial;SW Version;TimeZone;SNMP ver;No SrcRt;"
                   "Pass Encr;Weak Encr;Strong Encr;SSH Chk;Logging buffered (level);SSH Timeout;Boot Cnf;"
                   "ServCnf;CNSCnf;con0 exec-time;con0 trans pref;"
@@ -73,7 +73,7 @@ def init_comliance_files():
 
 
 def all_neighbours_file_output(all_neighbours):
-    all_found_neighbours = open("output\\all_nei_output.csv", "a")
+    all_found_neighbours = open("output" + os.sep + "all_nei_output.csv", "a")
 
     for i in range(len(all_neighbours)):
         all_found_neighbours.write('{0:1s};{1:1s};{2:1s} \n'.format(
@@ -92,7 +92,7 @@ def all_neighbours_file_output(all_neighbours):
 
 
 def neighbours_file_output(all_neighbours):
-    cdp_neighbours = open("output\\cdp_nei_output.csv", "a")
+    cdp_neighbours = open("output" + os.sep + "cdp_nei_output.csv", "a")
 #    cdp_neighbours.write("ConfigFile;Source hostname;Source Model;Source Mng IP;Source port;Dest hostname;Dest Model;Dest IP;Dest portn\n")
 
     for i in range(len(all_neighbours)):
@@ -111,10 +111,10 @@ def neighbours_file_output(all_neighbours):
 
 
 def many_macs_file_output(config, curr_path, neighbours, devinfo):
-    mac_template = open(curr_path+'\\nrt_macs.template')
+    mac_template = open(curr_path + os.sep + 'nrt_macs.template')
     mac_fsm = textfsm.TextFSM(mac_template)
 
-    many_macs = open("output\\many_macs.csv", "a")
+    many_macs = open("output" + os.sep + "many_macs.csv", "a")
 #    many_macs.write("Hostname;VLAN;MAC;PORT\n")
 
     mac_fsm.Reset()
@@ -134,10 +134,10 @@ def many_macs_file_output(config, curr_path, neighbours, devinfo):
 
 
 def ports_file_output(file, curr_path, config):
-    port_template = open(curr_path + '\\nrt_interfaces.template')
+    port_template = open(curr_path + os.sep + 'nrt_interfaces.template')
     port_fsm = textfsm.TextFSM(port_template)
 
-    resfile = open("output\cparser_output.csv", "a")
+    resfile = open("output"  + os.sep + "cparser_output.csv", "a")
 #    resfile.write("Configfile;Hostname;Mng IP;Domain Name;Model;Serial;SW Version;Ports avail.;Ports used\n")
 
     #  проверяем сколько портов активно на коммутаторе
@@ -191,7 +191,7 @@ def interfaces_file_output(int_config):
     # [17] - vlan id of off_equip vlan
     # [18] - vlan id of admin vlan
 
-    f_interfaces = open("output\\interfaces.csv", "a")
+    f_interfaces = open("output" + os.sep + "interfaces.csv", "a")
 
     vlans_all = ""
 
@@ -340,7 +340,7 @@ def check_compliance(num, file, curr_path, config):
 
 def write_compliance():
     # вывод в файл compliance информации
-    resfile = open("output\compliance_output.csv", "a")
+    resfile = open("output" + os.sep + "compliance_output.csv", "a")
 
     print('| {0:4d} | {1:75s} | {2:25s} | {3:15s} | {4:20s} | {5:18s} | {6:10s} | {7:12s} | {8:12s} | {9:10s} | {10:10s} | {11:10s} | {12:10s} | {13:12s} | {14:6s} | {15:25s} | {16:12s} | {17:6s} | {18:6s} | {19:6s} | {20:14s} | {21:14s} | {22:14s} | {23:12s} | {24:8s} | {25:14s} | {26:14s} | {27:12s} | {28:12s} |{29:8s} | {30:14s} | {31:14s} | {32:12s} | {33:12s} | {34:10s} | {35:10s} | {36:10s} | {37:10s} | {38:10s} | {39:10s} | {40:10s} | {41:10s} | {42:10s} | {43:10s} | {44:10s} | {45:10s} | {46:10s} | {47:10s} | {48:10s} | {49:10s} | {50:10s} | {51:10s} | {52:34s} | {53:34s} | {54:65s} | {55:10s} | {56:10s} | {57:10s} | {58:40s} | {59:10s} | {60:10s} | {61:10s} | {62:10s} | {63:10s} | {64:10s} |'.format(*compliance_result[len(compliance_result) - 1]))
 #    resfile.write('{0:4d};{1:75s};{2:25s};{3:15s};{4:20s};{5:18s};{6:10s};{7:12s};{8:12s};{9:10s};{10:10s};{11:10s};{12:10s};{13:12s};{14:6s};{15:25s};{16:12s};{17:6s};{18:6s};{19:6s};{20:14s};{21:14s};{22:14s};{23:12s};{24:8s};{25:14s};{26:14s};{27:12s};{28:12s};{29:8s};{30:14s};{31:14s};{32:12s};{33:12s};{34:10s};{35:10s};{36:10s};{37:10s};{38:10s};{39:10s};{40:10s};{41:10s};{42:10s};{43:10s};{44:10s};{45:10s};{46:10s};{47:10s};{48:10s};{49:10s};{50:10s};{51:10s};{52:29s};{53:30s};{54:65s};{55:10s};{56:10s};{57:10s};{58:40s};{59:10s};{60:10s};{61:10s};{62:10s}\n'.format(*compliance_result[len(compliance_result) - 1]))
@@ -791,7 +791,7 @@ def write_xls_report(curr_path, ):
             i = i + 1
     sheet_ranges['F64'].value = "Найдено на " + str(i) +" устройствах:\n" + sheet_ranges['F64'].value
 
-    save_workbook(compliance_report, 'output\\compliance_report.xlsx')
+    save_workbook(compliance_report, 'output' + os.sep + 'compliance_report.xlsx')
     compliance_report.close()
 
 
@@ -801,11 +801,11 @@ def find_missed_devices():
     missed_devices = []
     dname = ""
 
-    with open("output\\cparser_output.csv") as f_cparser:
+    with open("output" + os.sep + "cparser_output.csv") as f_cparser:
         for line in f_cparser.readlines():
             devices.append(line.split(";"))
 
-    with open("output\\all_nei_output.csv") as f_allnei:
+    with open("output"  + os.sep + "all_nei_output.csv") as f_allnei:
         for line in f_allnei.readlines():
             cdps.append(line.split(";"))
 
@@ -836,7 +836,7 @@ def find_missed_devices():
 
 
 def missed_devices_file_output(missed_devices):
-    f_missed = open("output\\missed_devices.csv", "a")
+    f_missed = open("output"  + os.sep + "missed_devices.csv", "a")
     for i in range(len(missed_devices)):
         f_missed.write('{0:1s};{1:1s};{2:1s}'.format(
             missed_devices[i][0],
