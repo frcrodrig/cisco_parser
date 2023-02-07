@@ -4,7 +4,7 @@ from regparsers import *
 
 
 def get_cdp_neighbours(config, curr_path, file, devinfo):
-    nei_template = open(os.path.join(pathfile, 'nrt_cdp_nei.template'))
+    nei_template = open(os.path.join(curr_path, 'nrt_cdp_nei.template'))
     fsm = textfsm.TextFSM(nei_template)
 
     fsm.Reset()
@@ -38,7 +38,7 @@ def get_cdp_neighbours(config, curr_path, file, devinfo):
 
 
 def get_vrfs(config, curr_path, file, devinfo):
-    nei_template = open(os.path.join(pathfile, 'nrt_cdp_nei.template'))
+    nei_template = open(os.path.join(curr_path, 'nrt_cdp_nei.template'))
     fsm = textfsm.TextFSM(nei_template)
 
     fsm.Reset()
@@ -68,7 +68,7 @@ def get_vrfs(config, curr_path, file, devinfo):
 
 def get_interfaces_config(config, curr_path, file, devinfo):
     interfaces = []
-    int_template = open(os.path.join(pathfile, 'nrt_interfaces_config.template'))
+    int_template = open(os.path.join(curr_path, 'nrt_interfaces_config.template'))
     fsm = textfsm.TextFSM(int_template)
     fsm.Reset()
     interfaces = fsm.ParseText(config)
@@ -186,7 +186,7 @@ def get_interfaces_config(config, curr_path, file, devinfo):
 def get_vlan_config(config, curr_path):
     # Extract vlan information (id, name) from configuration
 
-    vlan_template = open(os.path.join(pathfile, 'nrt_vlans_config.template'))
+    vlan_template = open(os.path.join(curr_path, 'nrt_vlans_config.template'))
     fsm = textfsm.TextFSM(vlan_template)
     fsm.Reset()
     vlans = fsm.ParseText(config)
@@ -219,7 +219,7 @@ def get_vlan_config(config, curr_path):
 def get_access_config(config, curr_path):
     # Extract vty device access parameters
 
-    access_template = open(os.path.join(pathfile, 'nrt_dev_access.template'))
+    access_template = open(os.path.join(curr_path, 'nrt_dev_access.template'))
     fsm = textfsm.TextFSM(access_template)
     fsm.Reset()
     access = fsm.ParseText(config)
@@ -288,7 +288,7 @@ def get_access_config(config, curr_path):
 
 def get_con_access_config(config, curr_path):
     # Extract console device access parameters
-    access_template = open(os.path.join(pathfile, 'nrt_dev_con_access.template'))
+    access_template = open(os.path.join(curr_path, 'nrt_dev_con_access.template'))
     fsm = textfsm.TextFSM(access_template)
     fsm.Reset()
     access = fsm.ParseText(config)
@@ -342,7 +342,7 @@ def get_tacacs_server_ips(config, curr_path):
             return "Fail"
     else:
         # Extract vlan information (id, name) from configuration
-        tacacs_template = open(os.path.join(pathfile, 'nrt_tacacs_servers.template'))
+        tacacs_template = open(os.path.join(curr_path, 'nrt_tacacs_servers.template'))
         fsm = textfsm.TextFSM(tacacs_template)
         fsm.Reset()
         ips = fsm.ParseText(config)
